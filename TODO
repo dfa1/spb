@@ -1,0 +1,7 @@
+- spb get package (as slapt)
+- configuration file: .spbrc
+      control " " for file 
+- fix perms (755) for bin/spb
+- support for FTP mirrors
+- fix/improve documentation
+- use cpan2tgz to create slackware packages for LWP e HTML::TreeBuilder

@@ -1,0 +1,29 @@
+# -*- cperl -*-
+# Configuration file for spb. Please note that this is perl script.
+# Rename to ~/.spbrc.
+
+# Set here default slackware version
+our $version = "current";
+
+# Set here default mirror
+$mirror = "yourmirror";
+
+# end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

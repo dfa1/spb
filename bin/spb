@@ -1,0 +1,148 @@
+#!/usr/bin/env perl
+# -*- cperl -*-
+
+=head1 NAME
+
+spb - textual interface to the Slackware Package Browser
+
+=head1 SYNOPSIS
+
+ spb action item [slackware_version]
+
+ where action is one of the following: file, package, get, info, versions.
+ slackware_version is optional, you will need this if you are looking for
+ specific slackware-version package. If not specified spb will try to
+ load it from your spb configuration file (~/.spbrc) or use 'current'.
+
+=cut
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+use Pod::Usage;
+use WWW::SPB;
+
+my $action;
+my $item;
+our $version; 			# configuration variable (see ~/.spbrc)
+our $mirror = "";		# ditto
+
+my $opt_help = 0;
+my $opt_version = 0;
+
+GetOptions(
+	   "help"    => \$opt_help,
+	   "version" => \$opt_version
+	  ) or pod2usage(2);
+
+pod2usage(1) if $opt_help;
+
+if ($opt_version) {
+  print "spb ", $WWW::SPB::VERSION, "\n";
+  exit;
+}
+
+pod2usage("spb: action is required") if @ARGV == 0;
+
+$action = shift;
+die "spb: unkown action '$action'\n"
+  unless $action =~ /file|package|info|get|versions/;
+
+if ($action eq "versions") {
+  print "$_\n" foreach versions();
+  exit;
+}
+
+$item = shift;
+die "spb: item is required\n" unless $item;
+
+# getting settings from ~/.spbrc
+do "$ENV{'HOME'}/.spbrc";
+
+# $version maybe defined in ~/.spbrc
+unless ($version) {
+  $version = shift;
+  $version = 'current' unless $version;
+}
+
+if ($action eq "package") {
+  print "$_\n" foreach packages($item, $version);
+} elsif ($action eq "file") {
+  $item = '"' . $item . '"';
+  print "$_\n" foreach files($item, $version);
+} elsif ($action eq "info") {
+  my %info;
+
+  $item = (split /\//, $item)[-1]; # remove directory/category
+  $item =~ s/\.tgz$//;		   # remove ending .tgz
+  %info = info($item, $version);
+
+  foreach (sort keys %info) {
+    print "$info{$_}\n";
+  }
+} elsif ($action eq "get") {
+  $item = (split /\//, $item)[-1]; # remove directory/category
+  $item =~ s/\.tgz$//;		   # remove ending .tgz
+
+  my $rm = get($item, $version, $mirror);
+  unless ($rm eq "Ok") {
+    print "spb: $rm\n";
+    exit 1;
+  }
+} else {
+  pod2usage(2);
+}
+
+__END__
+
+=head1 ACTIONS
+
+=over 8
+
+=item file B<file>
+
+Report which packages contains B<file>.
+
+=item package B<package>
+
+Print a list of packages that contains B<package> in their name or description.
+
+=item get B<package>
+
+Download the B<package> from the slackware mirrors.
+
+=item info B<package>
+
+Give some information about B<package>.
+
+=item versions
+
+Print a list of available slackware versions in the Slackware Package Browser.
+
+=back
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Show help about options.
+
+=item B<--version>
+
+Show version information.
+
+=back
+
+=head1 SEE ALSO
+
+ WWW::SPB(3)
+
+
+=head1 AUTHOR
+
+ Davide Angelocola <davide.angelocola@gmail.com>
+
+=cut

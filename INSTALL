@@ -1,0 +1,9 @@
+Spb requires the following dependencies:
+- LWP
+- HTML::TreeBuilder
+
+you can install them via cpan or your preferred method. The impatient
+can try with:
+
+# cpan -i LWP HTML::TreeBuilder
+

@@ -1,0 +1,10 @@
+.tmp$
+.skip$
+\#
+~$
+.svn
+.bak$
+.old$
+^blib
+.gz$
+.tar$

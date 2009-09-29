@@ -1,0 +1,37 @@
+2006-09-22  Davide Angelocola  <davide.angelocola@gmail.com>
+
+	* lib/WWW/SPB/versions.pm: new file 
+
+	* configuration file support added
+	
+	* support for command line options added
+
+	* added 'info' and 'versions' actions
+
+	* library reorganized
+	
+
+2006-09-21  Davide Angelocola  <davide.angelocola@gmail.com>
+
+	* merged spb-get, spb-file and spb-package in one script: spb
+
+	* removed URI dependency
+
+2006-09-20  Davide Angelocola  <davide.angelocola@gmail.com>
+
+	* lib/WWW/SPB/version.pm: new file
+
+	* added spb-get
+
+2006-09-18  Davide Angelocola  <davide.angelocola@gmail.com>
+
+	* version 1.2  
+	
+	* synchronized with new Slackware Package Browser (XHTML 1.1)
+
+	
+2006-09-16  Davide Angelocola  <davide.angelocola@gmail.com>
+
+	* updated base url to http://packages.slackware.it/search.php
+	
+

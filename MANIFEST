@@ -1,0 +1,16 @@
+bin/spb
+lib/WWW/SPB.pm
+lib/WWW/SPB/fetch.pm
+lib/WWW/SPB/get.pm
+lib/WWW/SPB/package.pm
+lib/WWW/SPB/search.pm
+lib/WWW/SPB/versions.pm
+Makefile.PL
+ChangeLog
+COPYING
+MANIFEST			This list of files
+INSTALL
+README
+THANKS
+TODO
+spbrc
